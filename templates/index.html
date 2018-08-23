@@ -1,12 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+{% load staticfiles %}
+<html xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf8">
+    <title>首页_杨青个人博客 - 一个站在web前端设计之路的女技术员个人博客网站</title>
+    <meta name="keywords" content="个人博客,杨青个人博客,个人博客模板,杨青"/>
+    <meta name="description" content="杨青个人博客，是一个站在web前端设计之路的女程序员个人网站，提供个人博客模板免费资源下载的个人原创网站。"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link type="text/css" href="{% static 'css/base.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'css/index.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'css/m.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.easyfader.min.js' %}"></script>
+    <script>
+        window.onload = function () {
+            var oH2 = document.getElementsByTagName("h2")[0];
+            var oUl = document.getElementsByTagName("ul")[0];
+            oH2.onclick = function () {
+                var style = oUl.style;
+                style.display = style.display == "block" ? "none" : "block";
+                oH2.className = style.display == "block" ? "open" : ""
+            }
+        }
+    </script>
 </head>
 <body>
-    hello world
+<header>
+    <div id="mnav">
+        <h2><span class="navicon"></span></h2>
+        <ul>
+            <li><a href="index.html">网站首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="share.html">模板分享</a></li>
+            <li><a href="list.html">学无止境</a></li>
+            <li><a href="list.html">慢生活</a></li>
+            <li><a href="link.html">博客导航</a></li>
+            <li><a href="gbook.html">留言</a></li>
+        </ul>
+    </div>
+    <div class="topnav">
+        <nav>
+            <ul>
+                <li><a href="index.html">网站首页</a></li>
+                <li><a href="about.html">关于我</a></li>
+                <li><a href="share.html">模板分享</a></li>
+                <li><a href="list.html">学无止境</a></li>
+                <li><a href="list.html">慢生活</a></li>
+                <li><a href="link.html">博客导航</a></li>
+                <li><a href="gbook.html">留言</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<article>
+    <div class="banner">
+        <div id="sucaihuo" class="fader">
+            {% for article in articles %}
+                {% if forloop.counter < 3 %}
+                    <img class="slide" src="/media/{{ article.icon }}" style="height: 350px; width: 1100px">
+                {% endif %}
+            {% endfor %}
+            <div class="fader_controls">
+                <div class="page prev" data-target="prev">&lsaquo;</div>
+                <div class="page next" data-target="next">&rsaquo;</div>
+                <ul class="pager_list">
+                </ul>
+            </div>
+        </div>
+        <script>
+            $(function () {
+                $('#sucaihuo').easyFader();
+            });
+        </script>
+    </div>
+
+    <div class="newblogs">
+        <h2 class="hometitle">最新文章</h2>
+        <ul>
+            {% for article in articles %}
+                <li>
+                    <h3 class="blogtitle"><span>
+                        <a href="/static/jstt/css3/" title="css3" target="_blank"
+                           class="classname">{{ article.category.name }}
+                        </a>
+                    </span>
+                        <a href="/jstt/css3/2018-03-26/812.html" target="_blank">{{ article.title }}</a>
+                    </h3>
+                    <div class="bloginfo"><span class="blogpic">
+                        <a href="/jstt/css3/2018-03-26/812.html"
+                           title="{{ article.title }}">
+                            <img src="/media/{{ article.icon }}" alt="{{ article.title }}"/>
+                        </a>
+                    </span>
+                        <p>{{ article.content | truncatechars:54 }}</p>
+                    </div>
+                    <div class="autor"><span class="lm f_l"></span><span
+                            class="dtime f_l">{{ article.create_time }}</span><span
+                            class="viewnum f_l">浏览（<a href="/">{{ article.view }}</a>）</span><span class="f_r"><a
+                            href="/jstt/css3/2018-03-26/812.html" class="more">阅读原文>></a></span></div>
+                    <div class="line"></div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="rbox">
+        <div class="links">
+            <h2 class="hometitle">博客分类</h2>
+            <ul>
+                {% for category in categorys %}
+                    <li><a href="http://www.yangqq.com">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="links">
+            <h2 class="hometitle">标签云</h2>
+            <ul>
+                {% for tag in tags %}
+                    <li><a href="http://www.yangqq.com">{{ tag.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="links">
+            <h2 class="hometitle">友情链接</h2>
+            <ul>
+                <li><a href="http://www.yangqq.com">杨青个人博客</a></li>
+                <li><a href="http://www.yangqq.com/download/">个人博客模板</a></li>
+                <li><a href="http://www.yangqq.com/link.html">优秀个人博客</a></li>
+            </ul>
+        </div>
+        <div class="weixin">
+            <h2 class="hometitle">官方微信</h2>
+            <ul>
+                <img src="/static/images/wx.jpg">
+            </ul>
+        </div>
+    </div>
+</article>
+<footer>
+    <p>Design by <a href="/">杨青个人博客</a> <a href="/">蜀ICP备11002373号-1</a></p>
+</footer>
 </body>
 </html>
