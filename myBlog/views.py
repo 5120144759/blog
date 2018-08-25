@@ -17,5 +17,6 @@ def index(request):
 
 
 def info(request, cid):
-
-    return render(request, 'info.html')
+    article = Article.objects.get(pk=cid)
+    tags = Tags.objects.filter(article=article).all()
+    return render(request, 'info.html', {'article': article, 'tags': tags})
