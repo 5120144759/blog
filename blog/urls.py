@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.staticfiles.urls import static
-from django.views.static import serve
+# from django.views.static import serve
 
 from blog import settings
 from myBlog import views
@@ -26,6 +26,6 @@ urlpatterns = [
     url(r'^blog/', include('myBlog.urls', namespace='blog')),
     # 首页
     url(r'^$', views.index, name='index'),
-    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    # url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]
-# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

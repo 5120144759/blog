@@ -1,19 +1,27 @@
 from django.db import models
 
+
 # Create your models here.
 
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
 
-    class Meta():
+    class Meta(object):
         db_table = 'category'
+
+    def __str__(self):
+        return self.name
+
 
 class Tags(models.Model):
     name = models.CharField(max_length=50)
 
-    class Meta():
+    class Meta(object):
         db_table = 'tags'
+
+    def __str__(self):
+        return self.name
 
 
 class Article(models.Model):
@@ -26,5 +34,5 @@ class Article(models.Model):
     hot = models.IntegerField(default=0)
     view = models.IntegerField(default=0)
 
-    class Meta():
+    class Meta(object):
         db_table = 'article'
